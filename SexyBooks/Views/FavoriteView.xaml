@@ -1,0 +1,63 @@
+﻿<Window x:Class="SexyBooks.Views.FavoriteView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodels="clr-namespace:SexyBooks.ViewModels"
+        xmlns:models="clr-namespace:SexyBooks.Models"
+        xmlns:local="clr-namespace:SexyBooks.Views"
+        mc:Ignorable="d"
+        x:Name="resultWindow"
+        Title="FavoriteView" Height="450" Width="800" WindowState="Maximized">
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top">Deine Favoriten:</TextBlock>
+        <DataGrid ItemsSource="{Binding Bücher,Mode=OneWay}" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate DataType="{x:Type models:Buch}">
+                    <Grid Background="Aqua">
+                        
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Image Source="{Binding Path=volumeInfo.imageLinks.thumbnail}" Height="200" Margin="10" />
+                        <Button Command="{Binding ElementName=resultWindow,Path=DataContext.RemoveFavoriteCommand}"
+                                VerticalAlignment="Center"
+                                CommandParameter="{Binding}">Als Favorit entfernen</Button>
+                    </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Name">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:Buch}">
+                            <TextBlock Text="{Binding Path=volumeInfo.title}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Autor">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:Buch}" >
+                            <TextBlock Text="{Binding Path=volumeInfo.authors[0]}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Cover">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:Buch}">
+                            <Image Source="{Binding Path=volumeInfo.imageLinks.smallThumbnail}" Height="80" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Vorschau">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:Buch}">
+                            <TextBlock>
+                                <!--<a href="....">Test</a>-->
+                                <Hyperlink Click="Hyperlink_Click" NavigateUri="{Binding Path=volumeInfo.previewLink}">Preview</Hyperlink>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>

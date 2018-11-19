@@ -1,0 +1,32 @@
+﻿<Window x:Class="SexyBooks.Views.StartView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SexyBooks.Views"
+        xmlns:viewmodels="clr-namespace:SexyBooks.ViewModels"
+        mc:Ignorable="d"
+        Title="StartView" Height="450" Width="800" WindowState="Maximized">
+    <Window.Background>
+        <RadialGradientBrush>
+            <GradientStop Color="Red" Offset="0.3" />
+            <GradientStop Color="Green" Offset="0.8" />
+        </RadialGradientBrush>
+    </Window.Background>
+    <Window.DataContext>
+        <viewmodels:StartViewModel />
+    </Window.DataContext>
+    <DockPanel Margin="10">
+        <TextBlock DockPanel.Dock="Top" FontSize="45" TextAlignment="Center" FontWeight="DemiBold" FontStyle="Italic" >
+            <Underline>Sexy Books</Underline>
+        </TextBlock>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="0 0 10 0">Suchbegriff:</TextBlock>
+                <TextBox Width="100" Text="{Binding Path=Suchbegriff,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+            <Button Margin="10" Command="{Binding Path=SucheCommand}">Suche Buch</Button>
+            <Button Margin="10" Command="{Binding Path=FavoritenCommand}">Zeige Favoriten</Button>
+        </StackPanel>
+    </DockPanel>
+</Window>
